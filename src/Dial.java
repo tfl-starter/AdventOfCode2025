@@ -56,4 +56,9 @@ public class Dial {
         return zero_counter;
     }
 
+    public void combination(String [] combinations) {
+        for (String s : combinations) {
+            rotate(s);
+        }
+    }
 }

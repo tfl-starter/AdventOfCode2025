@@ -29,4 +29,13 @@ public class DialSpec {
 
         Assert.assertEquals(3, dial.zero_counter());
     }
+    @Test
+    public void combination() {
+        Dial dial = new Dial();
+        String[] combination = {"L68", "L30", "R48", "L5", "R60","L55","L1","L99","R14","L82"};
+        dial.combination(combination);
+
+        Assert.assertEquals(32, dial.location());
+        Assert.assertEquals(3, dial.zero_counter());
+    }
 }
