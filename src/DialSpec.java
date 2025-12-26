@@ -45,7 +45,7 @@ public class DialSpec {
         String[] combinations = puzzle();
         dial.combination(combinations);
 
-        Assert.assertEquals(1, dial.zero_counter());
+        Assert.assertEquals(980, dial.zero_counter());
     }
 
     public String[] puzzle() {
