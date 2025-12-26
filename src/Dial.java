@@ -16,15 +16,23 @@ public class Dial {
         } else { 
             location += distance;
         }
-        if (location >= 100) {
-            location -= 100;
-        } 
-        if (location < 0){ 
-            location += 100;
-        }
-        if (location == 0){
+        reduceLocation();
+        increaseLocation();
+        if (location == 0) {
             zero_counter++;
         }
+    }
+
+    private void reduceLocation() {
+        if (location < 100) return; 
+        location -= 100;
+        reduceLocation();
+    }
+
+    private void increaseLocation() {
+        if (location >= 0) return; 
+        location += 100;
+        increaseLocation();
     }
 
     public String direction(String rotation) {
