@@ -15,7 +15,7 @@ public class Dial {
         } else { 
             location += distance;
         }
-        if (location > 100) {
+        if (location >= 100) {
             location -= 100;
         } 
 
