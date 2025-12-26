@@ -18,25 +18,25 @@ public class DialTest {
     public void newDialRotateLeft() {
         Dial dial = new Dial();
         dial.rotate( "L5");
-        Assert.assertEquals(55, dial.location());
+        Assert.assertEquals(45, dial.location());
     }
     @Test
     public void newDialRotateRight() {
         Dial dial = new Dial();
         dial.rotate( "R10");
-        Assert.assertEquals(40, dial.location());
+        Assert.assertEquals(60, dial.location());
     }
     @Test
     public void dialLeftOver99() {
         Dial dial = new Dial();
         dial.rotate( "L60");
-        Assert.assertEquals(10, dial.location());
+        Assert.assertEquals(90, dial.location());
     }
     @Test
     public void dialRightBelowZero() {
         Dial dial = new Dial();
         dial.rotate( "R60");
-        Assert.assertEquals(90, dial.location());
+        Assert.assertEquals(10, dial.location());
     }
     @Test
     public void directionLeft() {

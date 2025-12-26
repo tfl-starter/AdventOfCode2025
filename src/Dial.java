@@ -11,9 +11,9 @@ public class Dial {
         int distance = distance(rotation);
 
         if (isLeft(rotation)) { 
-            location += distance;
-        } else { 
             location -= distance;
+        } else { 
+            location += distance;
         }
         if (location > 100) {
             location -= 100;
