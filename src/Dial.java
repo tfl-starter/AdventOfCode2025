@@ -2,6 +2,7 @@ import java.nio.charset.UnsupportedCharsetException;
 
 public class Dial {
     private int location = 50;
+    private int zero_counter = 0;
 
     public int location() {
         return location;
@@ -18,9 +19,11 @@ public class Dial {
         if (location >= 100) {
             location -= 100;
         } 
-
         if (location < 0){ 
             location += 100;
+        }
+        if (location == 0){
+            zero_counter++;
         }
     }
 
@@ -47,6 +50,10 @@ public class Dial {
         String direction = direction(rotation);
         if (direction.startsWith("L")) return true;
         return false;
+    }
+
+    public int zero_counter() {
+        return zero_counter;
     }
 
 }

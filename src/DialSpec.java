@@ -26,5 +26,7 @@ public class DialSpec {
         Assert.assertEquals(14, dial.location());
         dial.rotate("L82");
         Assert.assertEquals(32, dial.location());
+
+        Assert.assertEquals(3, dial.zero_counter());
     }
 }
