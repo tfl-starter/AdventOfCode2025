@@ -1,4 +1,3 @@
-import java.beans.Transient;
 import java.nio.charset.UnsupportedCharsetException;
 
 import org.junit.*;
