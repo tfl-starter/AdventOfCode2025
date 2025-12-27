@@ -17,6 +17,7 @@ public class DialTest {
     @Test
     public void newDialRotateLeft() {
         Dial dial = new Dial();
+        ConsoleLogger log = new ConsoleLogger(dial);
         dial.rotate( "L5");
         Assert.assertEquals(45, dial.location());
     }
