@@ -1,8 +1,8 @@
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("AdventOfCode - 2025");
-        day1_examples();
-        // day1_solution();
+        // day1_examples();
+        day1_solution();
     }
 
     private static void day1_solution() {

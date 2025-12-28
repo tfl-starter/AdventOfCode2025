@@ -27,7 +27,7 @@ public class DialSpec {
         dial.rotate("L82");
         Assert.assertEquals(32, dial.location());
 
-        Assert.assertEquals(3, dial.zero_counter());
+        Assert.assertEquals(6, dial.zero_counter());
     }
     @Test
     public void method_0x434C49434B() {
@@ -53,7 +53,7 @@ public class DialSpec {
         dial.combination(combinations);
 
         Assert.assertEquals(32, dial.location());
-        Assert.assertEquals(3, dial.zero_counter());
+        Assert.assertEquals(6, dial.zero_counter());
     }
     @Test
     public void solveDay1( ) {
@@ -61,7 +61,8 @@ public class DialSpec {
         String[] combinations = puzzle();
         dial.combination(combinations);
 
-        Assert.assertEquals(980, dial.zero_counter());
+        // Assert.assertEquals(980, dial.zero_counter());
+        Assert.assertEquals(5956, dial.zero_counter());
     }
 
     public String[] puzzle() {
