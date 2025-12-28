@@ -10,25 +10,47 @@ public class Dial implements Subject {
     public Dial() {
         observers = new ArrayList<Observer>();
     }
-    
+
     public int location() {
         return location;
     }
 
     public void rotate(String rotation) {
         int distance = distance(rotation);
+        int zeroCounter = 0;
 
-        if (isLeft(rotation)) { 
+        if (isLeft(rotation)) {
             location -= distance;
-        } else { 
+        } else {
             location += distance;
         }
-        reduceLocation();
-        increaseLocation();
-        if (location == 0) {
-            zero_counter++;
+        zeroCounter += reduceLocation();
+        zeroCounter += increaseLocation();
+        // if (location == 0) {
+        // zero_counter++;
+        // }
+        // log("The dial is rotated " + rotation + " to point at " + location + ".");
+        if (zeroCounter > 0) {
+            log("The dial is rotated " + rotation + " to point at " + location
+                    + "; during this rotation, it points at 0 " + zeroCounter + " time(s).");
+        } else {
+            log("The dial is rotated " + rotation + " to point at " + location + ".");
         }
-        log("The dial is rotated " + rotation + " to point at " + location + ".");
+        this.zero_counter += zeroCounter;
+    }
+
+    private int reduceLocation() {
+        if (location < 100)
+            return 0;
+        location -= 100;
+        return 1 + reduceLocation();
+    }
+
+    private int increaseLocation() {
+        if (location >= 0)
+            return 0;
+        location += 100;
+        return 1 + increaseLocation();
     }
 
     private void log(String message) {
@@ -36,24 +58,12 @@ public class Dial implements Subject {
         modifyObservers();
     }
 
-    private void reduceLocation() {
-        if (location < 100) return; 
-        location -= 100;
-        reduceLocation();
-    }
-
-    private void increaseLocation() {
-        if (location >= 0) return; 
-        location += 100;
-        increaseLocation();
-    }
-
     public String direction(String rotation) {
         String direction = "";
-        direction = rotation.substring(0,1);
-        
-        if (!direction.matches("[L,R]")) 
-           throw new UnsupportedCharsetException("Unexpected direction indicator");
+        direction = rotation.substring(0, 1);
+
+        if (!direction.matches("[L,R]"))
+            throw new UnsupportedCharsetException("Unexpected direction indicator");
         return direction;
     }
 
@@ -61,15 +71,16 @@ public class Dial implements Subject {
         String distanceString = "";
         distanceString = rotation.substring(1, rotation.length());
 
-        if (!distanceString.matches("[0-9]+")) 
-           throw new UnsupportedCharsetException("Unexpected distance value");
+        if (!distanceString.matches("[0-9]+"))
+            throw new UnsupportedCharsetException("Unexpected distance value");
 
         return Integer.valueOf(distanceString);
     }
 
     public boolean isLeft(String rotation) {
         String direction = direction(rotation);
-        if (direction.startsWith("L")) return true;
+        if (direction.startsWith("L"))
+            return true;
         return false;
     }
 
@@ -78,7 +89,7 @@ public class Dial implements Subject {
         return zero_counter;
     }
 
-    public void combination(String [] combinations) {
+    public void combination(String[] combinations) {
         for (String s : combinations) {
             rotate(s);
         }

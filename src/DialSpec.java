@@ -30,6 +30,23 @@ public class DialSpec {
         Assert.assertEquals(3, dial.zero_counter());
     }
     @Test
+    public void method_0x434C49434B() {
+        Dial dial = new Dial();
+        dial.rotate("L68");
+        dial.rotate("L30");
+        dial.rotate("R48");
+        dial.rotate("L5");
+        dial.rotate("R60");
+        dial.rotate("L55");
+        dial.rotate("L1");
+        dial.rotate("L99");
+        dial.rotate("R14");
+        dial.rotate("L82");
+
+        Assert.assertEquals(32, dial.location());
+        Assert.assertEquals(6, dial.zero_counter());
+    }
+    @Test
     public void combination() {
         Dial dial = new Dial();
         String[] combinations = {"L68", "L30", "R48", "L5", "R60","L55","L1","L99","R14","L82"};
