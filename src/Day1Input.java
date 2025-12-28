@@ -1,7 +1,7 @@
 public class Day1Input {
     
     public String input() {
-        String input =  "R11\r\n" + //
+        String input = "R11\r\n" +
                         "R36\r\n" + //
                         "R1\r\n" + //
                         "L45\r\n" + //
