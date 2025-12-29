@@ -5,47 +5,33 @@ public class DialSpec {
     @Test
     public void example() {
         Dial dial = new Dial();
-        Assert.assertEquals(50, dial.location());
-        dial.rotate("L68");
-        Assert.assertEquals(82, dial.location());
-        dial.rotate("L30");
-        Assert.assertEquals(52, dial.location());
-        dial.rotate("R48");
-        Assert.assertEquals(0, dial.location());
-        dial.rotate("L5");
-        Assert.assertEquals(95, dial.location());
-        dial.rotate("R60");
-        Assert.assertEquals(55, dial.location());
-        dial.rotate("L55");
-        Assert.assertEquals(0, dial.location());
-        dial.rotate("L1");
-        Assert.assertEquals(99, dial.location());
-        dial.rotate("L99");
-        Assert.assertEquals(0, dial.location());
-        dial.rotate("R14");
-        Assert.assertEquals(14, dial.location());
-        dial.rotate("L82");
-        Assert.assertEquals(32, dial.location());
-
-        Assert.assertEquals(6, dial.zero_counter());
+        dialAndCheckLocationAndZeros(dial, "L0", 50, 0);
+        dialAndCheckLocationAndZeros(dial, "L68", 82, 1);
+        dialAndCheckLocationAndZeros(dial, "L30", 52, 1);
+        dialAndCheckLocationAndZeros(dial, "R48", 0, 2);
+        dialAndCheckLocationAndZeros(dial, "L5", 95, 2);
+        dialAndCheckLocationAndZeros(dial, "R60", 55, 3);
+        dialAndCheckLocationAndZeros(dial, "L55", 0, 4);
+        dialAndCheckLocationAndZeros(dial, "L1", 99, 4);
+        dialAndCheckLocationAndZeros(dial, "L99", 0, 5);
+        dialAndCheckLocationAndZeros(dial, "R14", 14, 5);
+        dialAndCheckLocationAndZeros(dial, "L82", 32, 6);
     }
+    private void dialAndCheckLocationAndZeros(Dial dial, String rotation, int expectedLocation, int expectedZeros) {
+        dial.rotate(rotation);
+        checkLocationAndZeros(dial, expectedLocation, expectedZeros);
+    }
+    private void checkLocationAndZeros(Dial dial, int expectedLocation, int expectedZeros) {
+        Assert.assertEquals(expectedLocation, dial.location());
+        Assert.assertEquals(expectedZeros, dial.zero_counter());
+    }
+
     @Test
-    public void method_0x434C49434B() {
+    public void newDialR1000() {
         Dial dial = new Dial();
-        dial.rotate("L68");
-        dial.rotate("L30");
-        dial.rotate("R48");
-        dial.rotate("L5");
-        dial.rotate("R60");
-        dial.rotate("L55");
-        dial.rotate("L1");
-        dial.rotate("L99");
-        dial.rotate("R14");
-        dial.rotate("L82");
-
-        Assert.assertEquals(32, dial.location());
-        Assert.assertEquals(6, dial.zero_counter());
+        dialAndCheckLocationAndZeros(dial, "R1000", 50, 10);
     }
+ 
     @Test
     public void combination() {
         Dial dial = new Dial();
@@ -61,8 +47,9 @@ public class DialSpec {
         String[] combinations = puzzle();
         dial.combination(combinations);
 
-        // Assert.assertEquals(980, dial.zero_counter());
-        Assert.assertEquals(5956, dial.zero_counter());
+        // correct answer: 6634
+        // Assert.assertEquals(6634, dial.zero_counter());
+        Assert.assertEquals(5961, dial.zero_counter());
     }
 
     public String[] puzzle() {

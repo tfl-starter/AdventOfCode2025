@@ -34,5 +34,13 @@ public class App {
         System.out.println("Day 1 extra example --------------");
         dial2.zero_counter();
         System.out.println("Day 1 extra example --------------");
+        
+        dial2.rotate("L1000");
+        dial2.rotate("R50");
+        dial2.rotate("L50");
+        dial2.rotate("L50");
+        System.out.println("Day 1 extra example --------------");
+        dial2.zero_counter();
+        System.out.println("Day 1 extra example --------------");
     }
 }

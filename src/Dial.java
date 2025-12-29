@@ -16,41 +16,36 @@ public class Dial implements Subject {
     }
 
     public void rotate(String rotation) {
-        int distance = distance(rotation);
-        int zeroCounter = 0;
+        int distance = newLocation(rotation);
+        int count_of_zeros = 0;
 
-        if (isLeft(rotation)) {
-            location -= distance;
-        } else {
-            location += distance;
+        int dial_starting_position = location;
+        for (int i = 0; i < distance; i++) {
+            if (isLeft(rotation)) {
+                dial_starting_position--;
+            } else {
+                dial_starting_position++;
+            }
+            dial_starting_position = dial_starting_position % 100;
+            if (dial_starting_position == 0) {
+                count_of_zeros++;
+            }
+            if (dial_starting_position < 0) {
+                dial_starting_position += 100;
+            }
         }
-        zeroCounter += reduceLocation();
-        zeroCounter += increaseLocation();
-        // if (location == 0) {
-        // zero_counter++;
-        // }
-        // log("The dial is rotated " + rotation + " to point at " + location + ".");
-        if (zeroCounter > 0) {
+        location = dial_starting_position;
+        this.zero_counter += count_of_zeros;
+
+        if (count_of_zeros > 0) {
             log("The dial is rotated " + rotation + " to point at " + location
-                    + "; during this rotation, it points at 0 " + zeroCounter + " time(s).");
+                    + "; during this rotation, it points at zero " + count_of_zeros + " time(s)."
+                    + " new zero_counter= " + zero_counter);
         } else {
-            log("The dial is rotated " + rotation + " to point at " + location + ".");
+            log("The dial is rotated " + rotation + " to point at " + location + "."
+            // + " zero_counter= " + zero_counter
+            );
         }
-        this.zero_counter += zeroCounter;
-    }
-
-    private int reduceLocation() {
-        if (location < 100)
-            return 0;
-        location -= 100;
-        return 1 + reduceLocation();
-    }
-
-    private int increaseLocation() {
-        if (location >= 0)
-            return 0;
-        location += 100;
-        return 1 + increaseLocation();
     }
 
     private void log(String message) {
@@ -67,7 +62,7 @@ public class Dial implements Subject {
         return direction;
     }
 
-    public int distance(String rotation) {
+    public int newLocation(String rotation) {
         String distanceString = "";
         distanceString = rotation.substring(1, rotation.length());
 
