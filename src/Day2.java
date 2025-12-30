@@ -1,12 +1,8 @@
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public  class Day2 {
     public static void main(String[] args) throws Exception {
@@ -20,6 +16,18 @@ public  class Day2 {
         // BufferedReader reader = Files.newBufferedReader(filePath, StandardCharsets.UTF_8);
         
         Long sumOfInvalidIds = 0L;
+
+        // new Range().isValid4("33");
+        // System.out.println(new Range().isValid4("33"));
+        // System.out.println(new Range().isValid4("998"));
+        // System.out.println(new Range().isValid4("999"));
+        // System.out.println(new Range().isValid4("5566"));
+        // System.out.println(new Range().isValid4("1010"));
+        // System.out.println(new Range().isValid4("121212"));
+        // System.out.println(new Range().isValid4("123123"));
+        // System.out.println(new Range().isValid4("17311731"));
+        // System.out.println(new Range().isValid4("14214299"));
+        // System.exit(0);
 
         try {
             String content = Files.readString(filePath, Charset.defaultCharset());
@@ -37,7 +45,8 @@ public  class Day2 {
                     for (long i = firstId; i <= lastId; i++) {
                         String idStr = Long.toString(i);
                         Range rangeObj = new Range();
-                        if (!rangeObj.isValid(idStr)) {
+                        if (!rangeObj.isValid4(idStr)) {
+                        // if (!rangeObj.isValid(idStr)) {
                             System.out.print(idStr + ", ");
                             sumOfInvalidIds += i;
                         } 
