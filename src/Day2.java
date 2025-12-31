@@ -3,6 +3,7 @@ import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import org.apache.commons.lang3.time.StopWatch;
 
 public  class Day2 {
     public static void main(String[] args) throws Exception {
@@ -33,28 +34,17 @@ public  class Day2 {
             String content = Files.readString(filePath, Charset.defaultCharset());
             // System.out.println(content);
             String[] lines = content.split("\\r?\\n");
-            for (String line : lines) {
-                String[] ranges = line.split(",");
-                for (String range : ranges) {
-                    System.out.println();
-                    System.out.print(range + ": ");
-                    String[] bounds = range.split("-");
-                    long firstId = Long.parseLong(bounds[0]);
-                    long lastId = Long.parseLong(bounds[1]);
 
-                    for (long i = firstId; i <= lastId; i++) {
-                        String idStr = Long.toString(i);
-                        Range rangeObj = new Range();
-                        if (!rangeObj.isValid4(idStr)) {
-                        // if (!rangeObj.isValid(idStr)) {
-                            System.out.print(idStr + ", ");
-                            sumOfInvalidIds += i;
-                        } 
-                    }
-                }
-            }
-            System.out.println();
-            System.out.println("Sum of invalid IDs: " + sumOfInvalidIds);
+            Doublicates doublicates = new Doublicates();
+            ConsoleLogger logger = new ConsoleLogger(doublicates);
+
+            doublicates.startWatch();
+            doublicates.detect(lines);
+            doublicates.stopWatch();
+
+            System.out.println("Time Elapsed: " + doublicates.elapsedTimeMillis() + " ms"); // Prints: Time Elapsed: 2501            
+            System.out.println("Sum of invalid IDs: " + doublicates.subOfInvalidIds());
+
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file: " + e.getMessage());
             e.printStackTrace();

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Range {
+public class Range implements Subject {
     private ArrayList<Observer> observers;
     private String log;
     Integer[] invalidIds;
@@ -10,30 +10,11 @@ public class Range {
     }
 
    public boolean isValid(String id) {
-        return isValid3(id);
-
-        // // An ID is considered invalid if it has an odd number of digits
-        // if (id.length() % 2 != 0) {
-        //     return true;
-        // }
-        // String left = id.substring(0, id.length() / 2);
-        // String right = id.substring(id.length() / 2);
-        // if (left.equals(right)) {
-        //     return false;
-        // }
-        
-        // return true;
+        return !containOnlySubstrings(id);
     }
     
-    public boolean isValid3(String id) {
-        if (id.length() <= 1) {
-            return true;
-        }
-        for (int sequence = 1; sequence <= id.length() / 2; sequence++) {
-            if (hasOnlySequence(id.substring(0, sequence), id)) 
-                return false;
-        }
-        return true;
+    public boolean containOnlySubstrings(String id) {
+        return ( (id + id).indexOf(id, 1) != id.length() );
     }
 
     public boolean isValid4(String id) {
@@ -82,44 +63,28 @@ public class Range {
         return false;
     }
 
-    Boolean hasOnlySequence(String sequence, String id) {
-        int idLength = id.length();
-        int seqLength = sequence.length();
-
-            // if (seqLength > idLength) 
-            //     return false;
-
-            String idSubString = id.substring(0, seqLength);
-
-            if (!idSubString.equals(sequence))
-                return false;
-
-            if (seqLength == idLength && sequence.equals(id))
-                return true;
-
-            return hasOnlySequence(sequence, id.substring(1));
-            // return false;
-        }
-
-        public boolean isValid2(String id) {
-        int len = id.length();
-        if (len < 2) {
-            return true;
-        }   
-
-        for (int subLen = 1; subLen <= len / 2; subLen++) {
-            for (int start = 0; start <= len - 2 * subLen; start++) {
-                String left = id.substring(start, start + subLen);
-                String right = id.substring(start + subLen, start + 2 * subLen);
-
-                // String left = id.substring(0, subLen);
-                // String right = id.substring(subLen, subLen);
-                if (left.equals(right)) {
-                    return false;
-                }
-            }
-        }
-        return true;
+    private void log(String message) {
+        log = message;
+        modifyObservers();
     }
 
+    @Override
+    public void registerObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        int i = observers.indexOf(o);
+        if (i >= 0) {
+            observers.remove(i);
+        }
+    }
+
+    @Override
+    public void modifyObservers() {
+        for (Observer observer : observers) {
+            observer.update(log);
+        }
+    }
 }
