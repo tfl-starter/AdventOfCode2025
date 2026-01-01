@@ -7,7 +7,7 @@ public class BatteryBank implements Subject {
     private String log;
     private long startTimeInMs;
     private long endTimeInMs;
-    private int totalSumJoltage = 0;
+    private long totalSumJoltage = 0;
 
     public BatteryBank() {
          observers = new ArrayList<Observer>();       
@@ -25,37 +25,48 @@ public class BatteryBank implements Subject {
     public void detect(String[] lines) {
         String out = "";
         for (String line : lines) {
-            int maxJoltage = maxJoltage(line);
+            long maxJoltage = maxJoltage(line);
             out = line + " -> " + maxJoltage;
             totalSumJoltage += maxJoltage;
             log(out);
         }
     }
 
-    public int maxJoltage(String string) {
-        int maxBattery = 0;
-        int leftLocation = 0;
-        int rightLocation = 0;
-
-        for (int i = 0; i < string.length(); i++) {
-            char leftChar = string.charAt(i);
-            Integer leftBattery = Character.getNumericValue(leftChar);
-            for (int j = i + 1; j < string.length(); j++) {
-                char rightChar = string.charAt(j);
-                Integer rightBattery = Character.getNumericValue(rightChar);
-
-                int currentBattery = leftBattery * 10 + rightBattery;
-                if (maxBattery < currentBattery) {
-                    maxBattery = currentBattery;
-                    leftLocation = i;
-                    rightLocation = j;
-                }
+    public long maxJoltage(String string) {
+        int keep = 12;
+        if (string.length() < keep) {
+            return 0; // Fallback if fewer than 12 digits
+        }
+        int toRemove = string.length() - keep;
+        StringBuilder result = new StringBuilder();
+        for (char digit : string.toCharArray()) {
+            while (result.length() > 0 && result.charAt(result.length() - 1) < digit && toRemove > 0) {
+                result.deleteCharAt(result.length() - 1);
+                toRemove--;
+            }
+            result.append(digit);
+        }
+        // Remove any remaining digits from the end if needed
+        if (toRemove > 0) {
+            result.setLength(result.length() - toRemove);
+        }
+        return Long.parseLong(result.toString());
+    }
+    public int positionOfMaxValue(String string, int startPosition) {
+        int positionOfHMaxValue = 0;
+        int maxValue = 0;
+        for (int i = startPosition; i < string.length(); i++) {
+            char currentChar = string.charAt(i);
+            Integer currentValue = Character.getNumericValue(currentChar);
+            if (maxValue < currentValue) {
+                maxValue = currentValue;
+                positionOfHMaxValue = i;
             }
         }
-
-        return maxBattery;
+        return positionOfHMaxValue;
     }
-    public int totalSumJoltage() {
+
+    public long totalSumJoltage() {
         return totalSumJoltage;
     }
 
