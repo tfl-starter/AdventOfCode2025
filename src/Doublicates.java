@@ -13,11 +13,9 @@ public class Doublicates implements Subject {
     public void startWatch() {
         startTimeInMs = System.currentTimeMillis();
     }
-
     public void stopWatch() {
         endTimeInMs = System.currentTimeMillis();
     }
-
     public long elapsedTimeMillis() {
         return endTimeInMs - startTimeInMs;
     }
