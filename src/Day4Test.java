@@ -31,7 +31,7 @@ public class Day4Test {
         Assert.assertTrue(newGrid.paperRoleReadyToPick(1, 0, grid));
         Assert.assertTrue(newGrid.paperRoleReadyToPick(2, 6, grid));
 
-        Assert.assertEquals(13, newGrid.pickablePaperRols(grid));
+        Assert.assertEquals(43, newGrid.pickablePaperRols(grid));
     }
     @Test
     public void isValid() {

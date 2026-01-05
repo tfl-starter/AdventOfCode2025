@@ -89,7 +89,7 @@ public class Grid implements Subject {
         if (x < 0 || x > xMax) return false;
 
         char coordinate = grid.get(y).get(x);
-        if (coordinate != '@') return false;
+        if (coordinate == '.') return false;
         return true;
     }
 
@@ -97,13 +97,24 @@ public class Grid implements Subject {
         int countPickablePaperRols = 0;
         int ySize = grid.size();
         int xSize = grid.get(0).size();
+        
+        List<List<Character>> reducedGrid = new ArrayList<List<Character>>();
 
         for (int y = 0; y < ySize; y++) {
+            List<Character> yLine = new ArrayList<Character>();
             for (int x = 0; x < xSize; x++ ) {
-                if (paperRoleReadyToPick(y, x, grid)) countPickablePaperRols++;
+                if (paperRoleReadyToPick(y, x, grid)) {
+                    countPickablePaperRols++;
+                    yLine.add('.');
+                } else {
+                    yLine.add(grid.get(y).get(x));
+                }
             }
+            reducedGrid.add(yLine);
         }
-
+        if (countPickablePaperRols > 0) {
+            countPickablePaperRols += pickablePaperRols(reducedGrid);
+        }
         return countPickablePaperRols;
     }
 
