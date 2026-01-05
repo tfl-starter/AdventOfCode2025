@@ -3,6 +3,7 @@ import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class Day4 {
     public static void main(String[] args) {
@@ -13,22 +14,22 @@ public class Day4 {
         System.out.println(filePath.toString());
         System.out.println(filePath.toAbsolutePath().toString());
 
-        Long totalSumPaperRolls = 0L;
+        int totalSumPaperRolls = 0;
 
         try {
             String content = Files.readString(filePath, Charset.defaultCharset());
-            // System.out.println(content);
-            String[] lines = content.split("\\r?\\n");
             
-            BatteryBank battery = new BatteryBank();
-            ConsoleLogger logger = new ConsoleLogger(battery);
+            Grid newGrid = new Grid();
+            List<List<Character>> grid = newGrid.toGrid(content);
+    
+            ConsoleLogger logger = new ConsoleLogger(newGrid);
 
-            battery.startWatch();
-            battery.detect(lines);
-            battery.stopWatch();
+            newGrid.startWatch();
+            totalSumPaperRolls = newGrid.pickablePaperRols(grid);
+            newGrid.stopWatch();
 
-            System.out.println("Time Elapsed: " + battery.elapsedTimeMillis() + " ms"); // Prints: Time Elapsed: 2501            
-            System.out.println("Total Sum of Joltage: " + battery.totalSumJoltage());
+            System.out.println("Time Elapsed: " + newGrid.elapsedTimeMillis() + " ms"); // Prints: Time Elapsed: 2501            
+            System.out.println("Total Sum of Pickable Paper Rolls: " + totalSumPaperRolls);
 
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file: " + e.getMessage());
