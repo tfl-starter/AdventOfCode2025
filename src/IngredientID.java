@@ -12,7 +12,7 @@ public class IngredientID {
     }
     
     private boolean isInRange(String id) {
-        int id_number = Integer.parseInt(id);
+        long id_number = Long.parseLong(id);
         for (Iterator<IDRange> i = freshProducts.iterator(); i.hasNext();) {
             if (i.next().contains(id_number)) return true;
         }
@@ -23,8 +23,8 @@ public class IngredientID {
         String[] elements = s.split("-");
         if (elements.length != 2) throw new IllegalArgumentException();
         
-        int low = Integer.parseInt(elements[0]);
-        int high = Integer.parseInt(elements[1]);
+        long low = Long.parseLong(elements[0]);
+        long high = Long.parseLong(elements[1]);
         IDRange range = new IDRange(low, high);
 
         freshProducts.add(range);
