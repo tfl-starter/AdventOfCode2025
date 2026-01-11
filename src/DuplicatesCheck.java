@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-public class Range implements Subject {
+public class DuplicatesCheck implements Subject {
     private ArrayList<Observer> observers;
     private String log;
     Integer[] invalidIds;
     
-    public Range() {
+    public DuplicatesCheck() {
         observers = new ArrayList<Observer>();
     }
 

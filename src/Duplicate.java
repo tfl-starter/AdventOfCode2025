@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
-public class Doublicates implements Subject {
+public class Duplicate implements Subject {
     private ArrayList<Observer> observers;
     private String log;
     private long sumOfInvalidIds = 0;
     private long startTimeInMs;
     private long endTimeInMs;
 
-    public Doublicates() {
+    public Duplicate() {
          observers = new ArrayList<Observer>();       
     }
     public void startWatch() {
@@ -32,7 +32,7 @@ public class Doublicates implements Subject {
 
                 for (long i = firstId; i <= lastId; i++) {
                     String idStr = Long.toString(i);
-                    Range rangeObj = new Range();
+                    DuplicatesCheck rangeObj = new DuplicatesCheck();
                     if (!rangeObj.isValid(idStr)) {
                         out = out + idStr + ", ";
                         sumOfInvalidIds += i;

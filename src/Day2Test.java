@@ -4,7 +4,7 @@ import org.junit.Test;
 public class Day2Test {
     @Test
     public void invalidIdsAreParsedCorrectly() {
-        Range range = new Range();
+        DuplicatesCheck range = new DuplicatesCheck();
         Assert.assertTrue(range.isValid("9"));
         Assert.assertTrue(range.isValid("10"));
         Assert.assertFalse(range.isValid("11"));
@@ -12,14 +12,14 @@ public class Day2Test {
     }
     @Test
     public void isValidWhenIdHasNoRepeatingSequence() {
-        Range range = new Range();
+        DuplicatesCheck range = new DuplicatesCheck();
         Assert.assertTrue(range.isValid("1"));
         Assert.assertTrue(range.isValid("101"));
         Assert.assertTrue(range.isValid("10101"));
     }
     @Test
     public void isInvalidWhenIdHasRepeatingSequence() {
-        Range range = new Range();
+        DuplicatesCheck range = new DuplicatesCheck();
         Assert.assertFalse(range.isValid("99")); 
         Assert.assertFalse(range.isValid("111")); // repeating "1"
         Assert.assertFalse(range.isValid("1010")); // repeating "10"

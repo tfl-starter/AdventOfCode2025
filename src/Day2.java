@@ -35,7 +35,7 @@ public  class Day2 {
             // System.out.println(content);
             String[] lines = content.split("\\r?\\n");
 
-            Doublicates doublicates = new Doublicates();
+            Duplicate doublicates = new Duplicate();
             ConsoleLogger logger = new ConsoleLogger(doublicates);
 
             doublicates.startWatch();
